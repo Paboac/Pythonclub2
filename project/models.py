@@ -38,7 +38,7 @@ class Resource(models.Model):
      resourcename=models.CharField(max_length=255)
      resrourcetype=models.CharField(max_length=255)
      resourceurl=models.URLField()
-     dateentered=models.DateTimeField()
+     date_entered=models.DateTimeField()
      userid=models.ForeignKey(User, on_delete=models.DO_NOTHING)
      resourcedescription=models.TextField()
 
@@ -61,6 +61,16 @@ class Event(models.Model):
      
      class Meta:
           db_table='Event'
+
+
+class Members(models.Model):
+     member=models.CharField(max_length=255)
+     memberid=models.IntegerField()
+
+     def __str__(self):
+          return self.member
+     class Meta:
+          db_table='Members'
 
 
 

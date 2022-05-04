@@ -1,4 +1,5 @@
 from collections import UserString
+from time import timezone
 from turtle import onclick
 from django.db import models
 from django.contrib.auth.models import User
@@ -13,6 +14,7 @@ class Meeting(models.Model):
 
 
 
+
      def __str__(self):
           return self.meetingtitle
      
@@ -20,15 +22,15 @@ class Meeting(models.Model):
           db_table='Meeting'
 
 class Meetingminutes(models.Model):
-     meetingid=models.ForeignKey(Meeting, on_delete=models.DO_NOTHING)
+     meetingID=models.ForeignKey(Meeting, on_delete=models.DO_NOTHING)
      attendance=models.ManyToManyField(User, max_length=255)
-     minutestext=models.IntegerField()
+     minutestext=models.TextField()
 
 
 
 
      def __str__(self):
-          return self.meetingid
+          return self.meetingID.meetingtitle + 'minutes'
 
      class Meta:
           db_table='Meetingminutes'

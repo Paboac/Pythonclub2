@@ -30,7 +30,7 @@ class Meetingminutes(models.Model):
 
 
      def __str__(self):
-          return self.meetingID.meetingtitle + 'minutes'
+          return self.meetingID
 
      class Meta:
           db_table='Meetingminutes'

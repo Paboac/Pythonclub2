@@ -2,9 +2,12 @@ from msilib.schema import tables
 from unicodedata import name
 from django.test import TestCase
 from django.contrib.auth.models import User
+
+from project.forms import MeetingForm
 from .models import Meeting, Meetingminutes, Resource, Event, Members
 from django.urls import reverse_lazy, reverse
 import datetime
+from .forms import EventForm, MeetingForm
 
 
 # Create your tests here.
@@ -62,6 +65,34 @@ class MeetingminutesTest(TestCase):
           
      def test_tablename(self):
           self.assertEqual(str(Meetingminutes._meta.db_table), 'Meetingminutes')
+
+
+class newMeetingForm(TestCase):
+     def test_meetingform(self):
+          data={
+               'meetingtitle': 'First Meeting!',
+               'meetingdate': 'May 03, 2022',
+               'meetinglocation': 'Seattle, WA',
+               'meetingagenda': 'To have some fun!',
+               }
+          form=MeetingForm (data)
+          self.assertTrue(form.is_valid)
+
+
+class newEventForm(TestCase):
+     def test_eventform(self):
+          data={
+               'eventitle': 'Wild Event!',
+               'location' : 'Seattle, WA',
+               'eventdate': '2022-05-29',
+               'eventtime': '12:00:00',
+               'eventdescription': 'Huge gathering!',
+               'userid': 'Pablo',
+          }
+          form=EventForm (data)
+          self.assertTrue(form.is_valid)
+
+
 
 
 

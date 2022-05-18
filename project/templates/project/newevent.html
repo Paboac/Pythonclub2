@@ -3,7 +3,7 @@
 {% block content %}
 <h2>Major Events</h2>
 <table class='table'>
-     <form method='Post', class='post-form'>{%csrf_token%}
+     <form method='Post', class='post-form'>{%csrf_token%}>
      {{form.as_table}}
 </table>
 <button type="Submit" class="save btn btn-default">Save</button>

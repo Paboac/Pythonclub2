@@ -2,12 +2,11 @@ from multiprocessing import context
 from turtle import title
 from urllib import request
 from django.shortcuts import render, get_object_or_404
-
 from project.forms import MeetingForm
 from .models import Meetingminutes, Resource, Event, Meeting, Members
 from django.urls import reverse_lazy
 from .forms import EventForm, MeetingForm
-
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def index(request): 
@@ -25,6 +24,7 @@ def event(request):
      even_title=Event.objects.all()
      return render(request, 'event.html', {'even_title': even_title})
 
+
 def meetingDetails(request, id):
      meeting=get_object_or_404(Meeting, pk=id)
      minute=Meetingminutes.objects.get(meetingID=meeting.id)
@@ -38,7 +38,8 @@ def eventDetails(request, id):
      event=get_object_or_404(Event, pk=id)
      title=Event.objects.get(eventitle=event.id)
      return render(request, 'project/eventDetails.html', {'event':event, 'title':title})
-
+     
+@login_required
 def newMeeting(request):
      form=MeetingForm
 
@@ -65,6 +66,15 @@ def newEvent(request):
      else:
           form=EventForm
           return render(request, 'project/newevent.html', {'form':form})
+
+
+def loginmessage(request):
+     return render(request, 'project/loginmessage.html')
+def logoutmessage(request):
+     return render(request, 'project/logoutmessage.html')
+
+
+
 
 
 

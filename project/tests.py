@@ -1,7 +1,12 @@
+from hashlib import new
 from msilib.schema import tables
 from unicodedata import name
 from django.test import TestCase
 from django.contrib.auth.models import User
+import datetime
+from .forms import MeetingForm, EventForm
+from django.urls import reverse_lazy, reverse
+
 
 from project.forms import MeetingForm
 from .models import Meeting, Meetingminutes, Resource, Event, Members
@@ -91,6 +96,18 @@ class newEventForm(TestCase):
           }
           form=EventForm (data)
           self.assertTrue(form.is_valid)
+
+     class new_event_auth_test(TestCase):
+          def setUp(self):
+               self.test_user = User.objects.create_user(username='testuser1', password='p@ssw0rd1')
+               self.type=new.objects.create(typename='event')
+               self.event=Event.objects.create(eventtitle='Event', eventdate='2022-05-230', eventtime='12:00:00', eventdescription='Very boring!', userid='testuser1')
+
+          def test_redirect_if_not_logged_in(self):
+               respose=self.client.get(reverse('event_new'))
+               self.assertRedirects(response, '/accounts/login/?next=/event/new/')
+
+
 
 
 
